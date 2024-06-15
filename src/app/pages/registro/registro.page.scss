@@ -1,0 +1,124 @@
+
+// Estilos de VERA
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  ion-content{
+    --background:#f9f5ff
+  }
+  .main {
+    max-width: 500px;
+    margin: auto;
+    background-color: rgba(235,227,205,255);
+    min-height: 100vh;
+    padding: 5rem 1rem 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .title {
+      color: #28262c;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-align: center;
+      h2{
+        letter-spacing: 5px;
+      }
+      p{
+        font-size: 0.75rem;
+        font-weight: 300;
+      }
+    }
+    form {
+      width: 100%;
+    }
+  }
+  
+  .input-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+    ion-input {
+    --background: white;
+    --placeholder-opacity: 0.8;
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+    --highlight-color-focused:#c46c29
+    }
+    label {
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      margin-bottom: 5px;
+      font-size: 0.75rem;
+    }
+  }
+  
+  ion-button {
+    font-size: 20px;
+    --background: #c46c29;
+    margin: 10px;
+  }
+  
+  .enlace-login {
+    font-size: 0.75rem;
+    text-align: center;
+    margin: 0.5rem 0;
+    span {
+      color: #14248a;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }
+  .mensaje-error {
+    color: red;
+    font-size: 0.75rem;
+  }
+  
+  .redes-sociales {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    div {
+      padding: 0.5rem;
+      border-radius: 10px;
+      text-align: center;
+      vertical-align: middle;
+      i{
+          color: white;
+      }
+      img {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+    .facebook {
+      //background-color: rgb(59, 89, 152);
+    }
+  }
+  
+  
+  .mi-nueva-clase{
+    display: none;
+  }
+
+  .enlace-login {
+    font-size: 0.75rem;
+    text-align: center;
+    margin: 0.5rem 0;
+    span {
+      color: #14248a;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+  }

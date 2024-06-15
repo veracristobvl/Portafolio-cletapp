@@ -1,0 +1,86 @@
+<ion-buttons slot="start" class="back-button" >
+  <ion-back-button icon="arrow-back" defaultHref="/"></ion-back-button>
+</ion-buttons>
+
+<ion-content >
+  <div class="main-container">
+    <!-- Contenedor de titulo de pagina -->
+    <div class="title-container">
+      <h1 class="title-text">AGREGAR UN LUGAR</h1>
+    </div> 
+    <div class="form">
+      <div class="form-title-container">
+        <h4 class="form-title-text">Detalles del lugar</h4>
+        <p>
+          Proporciona información acerca de este lugar. Este lugar se mostrará
+          de forma pública.
+        </p>
+      </div>
+
+      <form [formGroup]="formularioAgregarLugar" (ngSubmit)="guardarLugar()">
+        <!-- Input de nombre de lugar  -->
+        <div class="input-item">
+          <ion-input label="Nombre del lugar" labelPlacement="floating" fill="outline" placeholder="(Campo obligatorio)" type="text" formControlName="nombre" name="nombre" [clearInput]="true"></ion-input>
+        </div>
+        <!-- Input de direccion -->
+        <div class="input-item">
+          <ion-input label="Direccion" labelPlacement="stacked" fill="outline" placeholder="(Campo obligatorio)" type="text" formControlName="direccion" name="nombre" value="direccion" [clearInput]="true"></ion-input>
+        </div>
+        <!-- Input de indicaciones adicionales de ubicación -->
+        <div class="input-item">
+            <ion-textarea label="Indicaciones adicionales (Opcional)" labelPlacement="floating" placeholder="(En el subterráneo, por la entrada de tal calle, en frente de tal lugar, etc...)" formControlName="informacion_adicional" fill="outline"></ion-textarea>
+        </div>
+        <!-- Input de fotos -->
+        <div class="input-item fotos" >
+          <ion-label position="stacked">Agregar fotos (Opcional)</ion-label>
+          <div class="scroll-container">
+            <ion-button *ngIf="fotos.length == 0" (click)="tomarFoto()" class="add-button" > <ion-icon name="images-outline"></ion-icon> Agregar Foto</ion-button>
+            <ion-button *ngIf="fotos.length > 0" (click)="tomarFoto()" class="add-button" > <ion-icon name="add-circle-outline"></ion-icon> </ion-button>
+            <div *ngFor="let image of fotos;let i = index" class="image-container">
+                <img   src="{{ image }}" style="width: 100%; height: 100%; border-radius: 10px;">  
+                <ion-icon (click)="eliminarImagen(i)"  name="close-circle-outline" ></ion-icon>
+              </div> 
+          </div>
+        </div>
+        
+      
+        <!-- Opcion para agregar más detalles -->
+        <div class="mas-opciones-container" *ngIf="!mostrarMasOpciones" (click)="toggleMostrarOpciones()">
+          <p>Agregar más detalles</p>
+          <ion-icon name="caret-down-outline"></ion-icon>
+        </div>
+
+        <!-- Ion select para tipo de tarifa -->
+        <div class="input-item">
+          <ion-select *ngIf="mostrarMasOpciones" label="Tipo de tarifa (Opcional)" label-placement="stacked" formControlName="tipotarifa">
+            <ion-select-option value="gratis">Gratis</ion-select-option>
+            <ion-select-option value="pagado">Pagado</ion-select-option>
+          </ion-select>
+        </div>
+        <!-- Ion select para valor -->
+        <div *ngIf="formularioAgregarLugar.get('tipotarifa').value == 'pagado' " class="input-item">
+          <ion-input label="Valor (Opcional)" labelPlacement="stacked" fill="outline" placeholder="" type="number" formControlName="valor" name="valor"[clearInput]="true"></ion-input>
+        </div>
+
+        <!-- Ion select para periodo de cobro de tarifa (hora/día) -->
+        <div class="input-item">
+          <ion-select *ngIf="formularioAgregarLugar.get('valor').value" label="Período de Pago (Opcional)" label-placement="stacked" formControlName="periodopago">
+            <ion-select-option value="dia">Dia</ion-select-option>
+            <ion-select-option value="hora">Hora</ion-select-option>
+          </ion-select>
+        </div>
+
+        <!-- Ion select para estacionamiento techado o no  -->
+        <div class="input-item">
+          <ion-select *ngIf="mostrarMasOpciones" label="Estacionamiento Techado (Opcional)" label-placement="stacked" formControlName="techado">
+            <ion-select-option value="true">Si</ion-select-option>
+            <ion-select-option value="false">No</ion-select-option>
+          </ion-select>
+        </div>
+
+        <!-- Boton de LOGIN -->
+        <ion-button expand="block" type="submit" [disabled]="!formularioAgregarLugar.valid">Agregar</ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+.main-container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.title-container {
+  display: inline-block;
+  margin: 0;
+  align-self: center;
+  .title-text {
+    font-style: italic;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+  }
+}
+
+.form-title-container {
+  margin: 2.5rem 0 1rem 0;
+  .form-title-text {
+    font-size: 1.25rem;
+  }
+}
+
+.input-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  ion-input {
+    --background: white;
+    --placeholder-opacity: 0.8;
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+    --highlight-color-focused: #c46c29;
+    appearance: none;
+  }
+
+  label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+    color: black;
+  }
+}
+
+.fotos {
+  .scroll-container {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+    margin-top: 1rem;
+  }
+  .add-button {
+    --background: white;
+    color: black;
+    width: fit-content;
+    padding: 0rem;
+    border-radius: 15px;
+    min-width: 7rem;
+  }
+  .image-container {
+    min-width: 7rem;
+    max-width: 7.01rem;
+    height: 6rem;
+    position: relative;
+    display: inline-block;
+    ion-icon{
+      position: absolute; right: 0rem;font-size: 1.5rem;cursor: pointer;
+    }
+    img{
+      width: 100%; height: 100%; border-radius: 10px;
+    }
+  }
+}
+.mas-opciones-container{
+  border-top: 1px solid rgb(185, 182, 182);
+  border-bottom: 1px solid rgb(185, 182, 182);
+  margin: 2rem 0;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+.back-button {
+  position: fixed;
+}
+

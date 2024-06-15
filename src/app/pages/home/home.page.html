@@ -1,0 +1,215 @@
+<ion-content>
+  <!-- Buscador de Direcciones y Lugares -->
+  <div class="ion-searchbar search-container">
+    <ion-searchbar
+      [(ngModel)]="searchQuery"
+      class="custom"
+      (ionChange)="search()"
+      placeholder="Buscar calle..."
+      animated="true"
+      show-clear-button="focus"
+      (input)="onSearchChange()"
+    >
+    </ion-searchbar>
+    <ul *ngIf="predictions.length > 0" class="predictions-list">
+      <li
+        *ngFor="let prediction of predictions"
+        (click)="selectPrediction(prediction)"
+      >
+        {{ prediction.description }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenedor de MAPA -->
+  <div id="map" #map class="show-map"></div>
+
+  <!-- MODAL DE AGREGAR LUGAR -->
+  <ion-modal
+    #modal
+    class="custom-modal"
+    [initialBreakpoint]="0.5"
+    [breakpoints]="[0.1, 0.25, 0.5]"
+    style="border-radius: 10px; padding: 1.5rem"
+  >
+    <ng-template style="padding: 1rem !important">
+      <ion-content
+        style="
+          padding: 1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        "
+      >
+        <h3 style="margin: 1rem">{{this.direccion}}, {{this.comuna}}</h3>
+        <div
+          #streetView
+          alt="Street View"
+          style="
+            margin-top: 2rem;
+            border-radius: 5px;
+            height: clamp(25%, 100px, 400px);
+            width: 90%;
+            position: relative;
+            margin: auto;
+          "
+        >
+          <!-- <img src="{{ imageurl }}" alt="Street View" style="width: 75%; border-radius: 5px;"> -->
+        </div>
+
+        <div style="display: flex; width: 90%; margin: 1rem auto;">
+          <div style=" font-size: 1rem;margin: 0 0.5rem 0 0;">
+            <ion-icon name="bicycle-outline"></ion-icon>
+            <p style="display: inline-block; margin: 0 0.5rem">
+              {{this.distancia}}
+            </p>
+          </div>
+          |
+          <div style="font-size: 1rem;margin: 0 0 0 0.5rem;">
+            <ion-icon name="hourglass-outline"></ion-icon>
+            <p style="display: inline-block; margin: 0 0.5rem">
+              {{this.duracion}}
+            </p>
+          </div>
+        </div>
+
+        <ion-button (click)="agregarLugar()">Agregar Lugar</ion-button>
+        <div id="map2" #map2 class="show-map"></div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <ion-modal
+    #modal2
+    class="custom-modal"
+    [initialBreakpoint]="0.5"
+    [breakpoints]="[0.1, 0.25, 0.5, 0.75]"
+    style="border-radius: 10px; padding: 1.5rem; overflow-y: scroll;"
+  >
+    <ng-template style="padding: 1rem !important">
+      <ion-content style="padding: 1rem; display: flex; justify-content: center;align-items: center;">
+        <div style="width: 100%; height: 100%; padding: 2.25rem 1rem; overflow-y: scroll;">
+        <h3>{{this.activeLugar.nombre}}</h3>
+        <h4>{{this.activeLugar.direccion}}</h4>
+        <p>4.7 ⭐⭐⭐⭐⭐ ({{comentarios.length}})</p>
+        <p>Estacionamiento • <span><ion-icon name="bicycle-outline"></ion-icon> {{this.duracion}}</span></p>
+        <div  class="imagenes" style="display: flex;  gap: 1rem; overflow-x: scroll;">
+          <div *ngFor="let url of this.activeLugar.fotos" class="image-container" style="max-width:15rem;min-width: 14.5rem; max-height:10rem;min-height: 9.9rem; ">
+            <img src="{{url}}" alt="" style="width:100% ;height: 100%;border-radius: 15px;">
+          </div>
+        </div>
+        
+        <ion-list *ngIf="this.activeLugar.informacion_adicional || this.activeLugar.tipotarifa || this.activeLugar.valor || this.activeLugar.periodopago || this.activeLugar.techado ">
+
+          <h5 style="margin-top: 1rem;" >Información adicional</h5>
+          <ion-item>
+            <p *ngIf="this.activeLugar.informacion_adicional" >Indicaciones adicionales: {{this.activeLugar.informacion_adicional}}</p>
+          </ion-item>
+          <ion-item>
+            <p *ngIf="this.activeLugar.tipotarifa" >Tipo de tarifa: {{this.activeLugar.tipotarifa}}</p>
+
+          </ion-item>
+          <ion-item *ngIf="this.activeLugar.valor ">
+            <p >Valor: ${{this.activeLugar.valor}}/{{this.activeLugar.periodopago}}</p>
+          </ion-item>
+          <ion-item>
+
+            <p *ngIf="this.activeLugar.techado" >Estacionamiento techado: {{this.activeLugar.techado}}</p>
+          </ion-item>
+        </ion-list>
+        
+        
+        <h5 style="margin-top: 1rem;">Calificar y opinar</h5>
+        <p>Comparte tu experiencia para ayudar a otros</p>
+        
+        <ion-item>
+          <ion-icon *ngFor="let star of [1, 2, 3, 4, 5]"
+              name="star"
+              (click)="rating = star"
+              [color]="star <= rating ? 'warning' : 'medium'">
+          </ion-icon>
+        </ion-item>
+       
+        <ion-item>
+          <ion-label position="floating">Comentario</ion-label>
+          <ion-textarea [(ngModel)]="comentario"></ion-textarea>
+        </ion-item>
+        <ion-button  expand="block" (click)="agregarComentario()">Agregar Comentario</ion-button>
+        <!-- {{this.activeLugar.direccion}}
+        {{this.activeLugar.informacion_adicional}}
+        {{this.activeLugar.tipotarifa}}
+        {{this.activeLugar.valor}}
+        {{this.activeLugar.periodopago}}
+        {{this.activeLugar.techado}} -->
+        
+        <ion-list style="margin-top: 2rem;">
+          <h3>Comentarios</h3>
+          
+          <ion-item *ngFor="let comentario of comentarios" style="border-radius: 15px; --background:#d5d8db; margin-bottom: 1rem; ">
+            <div style="display:flex;flex-direction: column ; gap :1rem; padding: 1rem;">
+
+              <div style="display: flex; align-items: center;">
+                <ion-avatar style="margin-right: 1rem;" ><img alt="Silhouette of a person's head" src="{{comentario.photoUrl}}" /></ion-avatar>
+                <div style="display: flex; flex-direction: column;">
+
+                  <p>{{comentario.userNombre}}</p>
+                  <ion-icon  
+                  name="star"
+                  color="warning">
+                </ion-icon>
+              </div>
+            </div>
+            <div>
+              <p>{{comentario.comentario}}</p>
+            </div>
+          </div>
+          </ion-item>
+        </ion-list>
+      </div>
+       
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  <!-- Formulario de Agregar Lugar 
+  <ion-grid
+    style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    "
+  >
+    <ion-row>
+      <ion-col size="12">
+        <ion-card *ngIf="mostrarFormulario" class="formulario-animado">
+          <ion-card-header>
+            <ion-card-title style="text-align: center">Nombre:</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item lines="full">
+              <ion-label position="floating"></ion-label>
+              <ion-input id="nombreLugarInput" type="text"></ion-input>
+            </ion-item>
+            <ion-button
+              color="dark"
+              expand="block"
+              (click)="addMarker()"
+              style="margin-top: 10px"
+              >Agregar Marcador</ion-button
+            >
+            <ion-button
+              expand="block"
+              fill="clear"
+              color="medium"
+              (click)="cerrarFormulario()"
+              >Cerrar</ion-button
+            >
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  -->
+  <app-menu [currentPosition]="myLatLng"></app-menu>
+</ion-content>

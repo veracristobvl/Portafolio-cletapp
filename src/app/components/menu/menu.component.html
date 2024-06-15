@@ -1,0 +1,46 @@
+<!-- Menu de opciones. Se divide en 3 contenedores. 2 a los lados y uno al medio.  -->
+<ul *ngIf="authservice.isLoggedIn()">
+  <!-- Contenedor de opciones de mitad izquierda -->
+  <div class="left-half" *ngIf="authservice.isGuestUser() == false">
+    <li *ngIf="authservice.isGuestUser() == false" routerLink="/home">
+      <ion-icon name="home-outline"></ion-icon>
+      <a>Inicio</a>
+    </li>
+
+    <li *ngIf="authservice.isGuestUser() == false" routerLink="/perfil">
+      <ion-icon name="person-outline"></ion-icon>
+      <a >Perfil</a>
+    </li>
+  </div>
+
+  <li *ngIf="authservice.isLoggedIn()" (click)="home()" class="middle-option">
+    <a (click)="centrarMapa()">
+      <ion-icon name="navigate-outline"></ion-icon>
+    </a>
+  </li>
+
+  <!-- Contenedor de opciones de mitad derecha -->
+
+  <div class="left-half" *ngIf="authservice.isGuestUser() == false">
+    <li *ngIf="authservice.isGuestUser() == false" routerLink="/agregarlugar">
+      <ion-icon name="add-circle-outline"></ion-icon>
+
+      <a class="cbutton cbutton--effect-radomir">Agregar </a>
+    </li>
+    <li *ngIf="authservice.isGuestUser() == false">
+      <ion-icon name="settings-outline"></ion-icon>
+
+      <a>Ajustes</a>
+    </li>
+  </div>
+  <li
+    *ngIf="authservice.isGuestUser() == true"
+    routerLink="/login"
+    class="login-item"
+  >
+    <ion-button class="login-button"
+      ><ion-icon slot="end" name="log-in-outline"></ion-icon> INICIAR SESIÓN
+    </ion-button>
+  </li>
+</ul>
+

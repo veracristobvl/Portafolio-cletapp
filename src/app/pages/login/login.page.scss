@@ -1,0 +1,188 @@
+// ESITLOS AGREGADOS POR VERA
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+ion-content {
+  --background: rgba(235, 227, 205, 255);
+  display: flex;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: rgba(235, 227, 205, 255); /* Color de fondo */
+  border-radius: 10px; /* Esquinas redondeadas */
+  padding: 20px; /* Espaciado interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.modal-title {
+  text-align: center; /* Alineación del texto */
+  color: black; /* Color del texto */
+  font-size: 1.5rem; /* Tamaño del texto */
+  margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Estilos para el botón de cerrar */
+.modal-button-close {
+  --color: #14248a; /* Color del texto */
+}
+
+.main {
+  margin: auto;
+  background-color: rgba(235, 227, 205, 255);
+  min-height: 100vh;
+  max-width: 375px;
+  padding: 3rem 1rem 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    color: #28262c;
+    margin-bottom: 1rem;
+    text-align: center;
+    h2 {
+      letter-spacing: 2px;
+    }
+    p {
+      font-size: 0.75rem;
+      font-weight: 300;
+    }
+  }
+  form {
+    width: 100%;
+  }
+}
+
+.input-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  ion-input {
+    --background: white;
+    --placeholder-opacity: 0.8;
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+    --highlight-color-focused: #c46c29;
+    /*background-color: white;
+    color: black;
+    width: 100%;
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 10px;
+    padding: 0.75rem 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    ::placeholder {
+      font-size: 1px !important;
+    }*/
+  }
+  label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+    color: black;
+  }
+}
+
+ion-button {
+  font-size: 20px;
+  --background: #c46c29;
+  margin: 10px;
+}
+
+.enlace-login {
+  font-size: 0.75rem;
+  text-align: center;
+  margin: 0.5rem 0;
+  span {
+    color: #14248a;
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      text-decoration: none;
+      color: #c46c29;
+      font-weight: bold;
+    }
+  }
+}
+.mensaje-error {
+  color: red;
+  font-size: 0.75rem;
+}
+
+.mi-nueva-clase {
+  display: none;
+}
+ion-icon[name="eye"],
+ion-icon[name="eye-off"] {
+  font-size: 24px;
+  color: #777;
+  cursor: pointer;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .forgot-password-container {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    color: #c46c29;
+    a {
+      text-decoration: none;
+      color: #c46c29;
+    }
+  }
+  .remember-me-span {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.login-rrss-title {
+  border-top: 1px solid rgb(206, 204, 204);
+  width: 100%;
+  text-align: center;
+  margin: 2rem 0 0 0;
+  position: relative;
+  .rrss-title-text {
+    position: relative;
+    bottom: 17.2px;
+    background-color: rgba(235, 227, 205, 255);
+    width: fit-content;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+}
+.redes-sociales {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  div {
+    padding: 0.5rem;
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+    i {
+      color: white;
+    }
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<!-- Componente buscador. Vinculado a variable sarchQuery y función onSearchChange -->
+<ion-searchbar 
+class="custom"
+placeholder="Buscar calle..." 
+animated="true" 
+show-clear-button="focus" 
+(input)="onSearchChange()"
+[(ngModel)]="searchQuery"  
+>
+</ion-searchbar>
+
+<!-- Listado de resultados que aparecen solo si array "predictions" tiene contenido. Click en resultado llama a función selecPediction() -->
+<ul *ngIf="predictions.length > 0" class="predictions-list">
+    <li *ngFor="let prediction of predictions" (click)="selectPrediction(prediction)">
+      {{ prediction.description }}
+    </li>
+</ul>

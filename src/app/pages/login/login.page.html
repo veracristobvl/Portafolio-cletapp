@@ -1,0 +1,113 @@
+<!-- Inicio Formulario de cambio de contraseña -->
+<ion-content [fullscreen]="true">
+  <!-- Contenedor principal -->
+  <div class="main">
+    <!-- Título de pagina -->
+    <div class="title">
+      <h2>INICIAR SESIÓN</h2>
+    </div>
+    <!-- INICIO DE FORMULARIO FormGroup -->
+    <form [formGroup]="formularioLogin" (ngSubmit)="login()">
+      <!-- Inicio del input email -->
+      <div class="input-item">
+        <ion-input
+          class="custom"
+          label="Email"
+          labelPlacement="stacked"
+          fill="outline"
+          placeholder="Ejemplo@mail.com"
+          type="email"
+          formControlName="email"
+          name="email"
+          [clearInput]="true"
+        ></ion-input>
+
+        <!-- Mensajes de error de input email -->
+        <div *ngIf="formularioLogin.get('email').hasError('required') && formularioLogin.get('email').touched" class="mensaje-error">
+          El email es requerido.
+        </div>
+        
+        <div *ngIf="formularioLogin.get('email').hasError('email') && formularioLogin.get('email').touched" class="mensaje-error">
+          Ingresa un email válido
+        </div>
+      
+      </div>
+      
+       
+      <!-- Inicio Input de Contraseña -->
+      <div class="input-item">
+        <ion-input
+          label="Contraseña"
+          labelPlacement="stacked"
+          fill="outline"
+          placeholder="Ingresa tu contraseña"
+          type="{{showPassword? 'text':'password' }}"
+          formControlName="password"
+          name="password">
+          <ion-icon name="{{ showPassword ? 'eye-off' : 'eye' }}" slot="end" (click)="togglePasswordVisibility()"></ion-icon>
+        </ion-input>
+        
+        <!-- Mensajes de error de input contraseña -->
+        <div *ngIf="formularioLogin.get('password').hasError('required') && formularioLogin.get('password').touched" class="mensaje-error" >
+          La contraseña es requerida.
+        </div>
+
+        <!-- Link para cambiar contraseña -->
+        <div class="forgot-password-container">
+          
+          <span class="forgot-password-container">
+            <a href="#" routerLink="/forgotpassword">Olvidaste tu contraseña?</a>
+          </span>
+
+          <span class="remember-me-span">
+            <ion-checkbox formControlName="recordarme" color="success"></ion-checkbox>
+            <ion-label>Recuerdame</ion-label>
+          </span>
+        
+        </div>
+
+      </div>
+      <!-- Fin Input de Contraseña -->
+
+      <!-- Boton de LOGIN -->
+      <ion-button expand="block" type="submit" [disabled]="!formularioLogin.valid">Login</ion-button>
+      
+      <!-- Link para ir a REGISTRO  -->
+      <div class="enlace-login">
+        <p>Aún no tienes una cuenta?
+          <span
+            ><a routerLink="/registro">Registrate</a>
+          </span>
+        </p>
+      </div>
+
+      <!-- Boton que hace ingreso como invitado (sin logueo) -->
+      <ion-button expand="block" (click)="loginAsGuest()">Entrar como Invitado</ion-button>
+    
+    </form>
+
+    <!-- Inicio de login con red social -->
+    <div class="login-rrss-title">
+      <p class="rrss-title-text">También ingresa con</p>
+    </div>
+    
+    <div class="redes-sociales">
+      <div class="apple">
+        <a href="">
+          <img src="../../../assets/images/apple.png" alt="" />
+        </a>
+      </div>
+      <div class="google">
+        <a (click)="loginWithGoogle()">
+          <img src="../../../assets/images/google.png" alt="" />
+        </a>
+      </div>
+      <div class="facebook">
+        <a (click)="loginWithFacebook()">
+          <img src="../../../assets/images/facebook.png" alt="" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Fin de login con red social -->
+</ion-content>
